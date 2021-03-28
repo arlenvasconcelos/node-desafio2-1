@@ -1,0 +1,295 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Challenge 2.1",
+    "description": "Challenge 2.1 - documentation",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/users": {
+      "post" : {
+        "tags": ["User"],
+        "summary":"Create user",
+        "description":"Create a new user",
+        "requestBody": {
+          "content": {
+            "application/json":{
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Arlen Vasconcelos",
+                  "email": "arlen@teste.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean",
+                      "default": false
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Bad request",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get" : {
+        "tags": ["User"],
+        "summary":"List all users",
+        "description":"List all users",
+        "parameters":[
+          {
+            "name": "user_id",
+            "in": "header",
+            "description": "User ID",
+            "schema":{
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "type":"array",
+                  "items": {
+                    "type":"object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "admin": {
+                        "type": "boolean"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get" : {
+        "tags": ["User"],
+        "summary":"Get a user by ID",
+        "description":"Show user profile information",
+        "parameters":[
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User ID",
+            "schema":{
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json":{
+                "schema": {
+                "type":"object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}/admin": {
+      "patch" : {
+        "tags": ["User"],
+        "summary":"Update admin role",
+        "description":"Update admin role of user",
+        "parameters":[
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User ID",
+            "schema":{
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json":{
+                "schema": {
+                "type":"object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json":{
+                "schema": {
+                  "type":"object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
